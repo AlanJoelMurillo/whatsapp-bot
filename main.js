@@ -72,7 +72,8 @@ async function consultaSybase(ip, pass, name) {
       `Port=5000;` +
       `Database=${process.env.NAME_DB};` +
       `UID=${process.env.USER};` +
-      `PWD=${pass};`;
+      `PWD=${pass};`+
+      `TDS_Version=5.0;`;
 
     const connection = await odbc.connect(connectionString);
     await connection.query("sp_who2");
