@@ -2,7 +2,7 @@ const { Client, LocalAuth } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
 const odbc = require("odbc");
 require("dotenv").config();
-
+const path = require("path");
 
 // 🔹 Credenciales de conexión
 const credentials = [
@@ -30,7 +30,11 @@ const client = new Client({
             '--single-process' // <- opcional, a veces ayuda en servidores pequeños
         ],
     },
-  authStrategy: new LocalAuth(),
+  authStrategy: new LocalAuth({
+    clientId: "bot-alarma",
+    dataPath: path.join(__dirname,".wwebjs_auth")
+
+  }),
 });
 
 // Mostrar QR para iniciar sesión
@@ -77,10 +81,10 @@ async function consultaSybase(ip, pass, name) {
 
     const connection = await odbc.connect(connectionString);
     await connection.query("sp_who2");
-    //console.log(`[ o ] ${name}`);
+    console.log(`[ o ] ${name}`);
     await connection.close();
   } catch (err) {
-    //console.error(`[ x ] ${name}`);
+    console.error(`[ x ] ${name}`);
     sendAlert(ip, name, err.message);
   }
 }
