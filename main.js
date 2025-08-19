@@ -17,9 +17,19 @@ const credentials = [
 
 // 🔹 Cliente de WhatsApp
 const client = new Client({
-  puppeteer: {
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  },
+ puppeteer: {
+        headless: true,
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-accelerated-2d-canvas',
+            '--no-first-run',
+            '--no-zygote',
+            '--disable-gpu',
+            '--single-process' // <- opcional, a veces ayuda en servidores pequeños
+        ],
+    },
   authStrategy: new LocalAuth(),
 });
 
