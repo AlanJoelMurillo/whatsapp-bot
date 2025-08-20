@@ -79,10 +79,10 @@ async function consultaSybase(ip, pass, name) {
       `PWD=${pass};`+
       `TDS_Version=5.0;`;
 
-    const connection = await odbc.connect(connectionString);
-    await connection.query("sp_who2");
+    //const connection = await odbc.connect(connectionString);
+    //await connection.query("sp_who2");
     console.log(`[ o ] ${name}`);
-    await connection.close();
+    //await connection.close();
   } catch (err) {
     console.error(`[ x ] ${name}`);
     sendAlert(ip, name, err.message);
